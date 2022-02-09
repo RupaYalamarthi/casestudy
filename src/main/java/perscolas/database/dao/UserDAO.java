@@ -16,7 +16,8 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
     //@Query("select u from user u where u.firstName = :firstname)
     //replaces spring framework does this query for us
-    public List<User> findByFirstName(@Param("email") String firstname);
+    public List<User> findByFirstName(@Param("firstName") String firstName);
+
 
     public List<User> findByLastName(@Param("lastName") String lastName);
 
@@ -27,8 +28,8 @@ public interface UserDAO extends JpaRepository<User, Long> {
     @Query("select u from User u where u.username = :username")
     public User findByUsername(@Param("username") String uname);
 
-    @Query(value="SELECT u.* FROM user u WHERE u.first_name like '%:firstName%'", nativeQuery = true)
-    public List<User> findByFirstNameLike(String firstName);
+    @Query(value="SELECT u.* FROM users u WHERE u.first_name like %:firstName%", nativeQuery = true)
+    public List<User> findByFirstNameLike(@Param("firstName") String firstName);
 
     @Query("select ur from UserRole ur where ur.user.id = :userId")
     List<UserRole> getUserRoles(@Param("userId") Integer userId);
