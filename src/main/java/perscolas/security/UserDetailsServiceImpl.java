@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userDao.findByEmail(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Username '" + username + "' not found in database");
+            throw new UsernameNotFoundException("Username '" + username + " not found in database");
         }
 
         // check the account status

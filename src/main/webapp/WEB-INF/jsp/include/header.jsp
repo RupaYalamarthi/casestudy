@@ -32,15 +32,34 @@
 
 </head>
 <body>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!-- implement any html you need to show on every page as a header here -->
 <table cellpadding="5">
 <tr><td><a href="/">Index</a></td>
+ <td>|</td>
+ <sec:authorize access="isAuthenticated()">
+          <td><a href="/login/logout">Logout</a></td>
+           <td>|</td>
+     </sec:authorize>
+     <sec:authorize access="!isAuthenticated()">
+           <td><a href="/login/login">Login</a></td>
+           <td>|</td>
+     </sec:authorize>
 
-<tr><td><a href="/login/logout">Logout</a></td>
 <td><a href="/registration-url-path/register">User Registration</a></td>
-<td><a href="/registration-url-path/userList">User Search</a></td></tr>
-<td><a href="/admin/home">Admin Home</a></td></tr>
+ <td>|</td>
+<td><a href="/registration-url-path/userList">User Search</a></td>
+<sec:authorize access="hasAnyAuthority('ADMIN', 'USER')">
+        <td>|</td>
+        <td><a href="/user/fileUpload">File Upload</a></td>
+   </sec:authorize>
+ <sec:authorize access="hasAuthority('ADMIN')">
+        <td>|</td>
+        <td><a href="/admin/home">Admin Home</a></td>
+   </sec:authorize>
+
+   <td>|</td>
+       <td><a href="/user/profile">Profile</a></td>
 
 </table>
 

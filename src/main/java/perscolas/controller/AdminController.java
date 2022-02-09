@@ -14,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
+//This restricts the controller Admin only, this can be done at the class level or at the method level
 @PreAuthorize("hasAuthority('ADMIN')")
+//ADMIN comes from database user role table
 
 public class AdminController {
     public static final Logger LOG = LoggerFactory.getLogger(AdminController.class);
-
+    //@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')") //Now it is used in UserController
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();

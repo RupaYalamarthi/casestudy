@@ -22,7 +22,7 @@ public class LoginController {
         return response;
     }
     @RequestMapping(value = "login/logoutSuccess", method = RequestMethod.GET)
-    public ModelAndView loginSuccess(HttpServletRequest request, HttpSession session) throws Exception {
+    public ModelAndView logoutSuccess(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("login/logoutSuccess");
 
