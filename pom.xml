@@ -132,9 +132,20 @@
 			<version>20211205</version>
 		</dependency>
 
+		<!-- webservices -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		<!--<version>1.6.2</version>-->
+
+    </dependency>
 
 
-		<!-- test -->
+    <!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -143,6 +154,51 @@
 	</dependencies>
 	<build>
 		<plugins>
+			<!-- Consumer plugin
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.14.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+					<generatePackage>perscolas.webservices.consumer</generatePackage>
+					<schemaDirectory>src/main/resources/ws_consumer</schemaDirectory>
+					<schemaIncludes>
+						<include>*.wsdl</include>
+					</schemaIncludes>
+					<cleanPackageDirectories>false</cleanPackageDirectories>
+				</configuration>
+			</plugin>-->
+
+			<!-- Producer plugin -->
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.14.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+					<generatePackage>perscolas.webservices.producer</generatePackage>
+					<schemaDirectory>src/main/resources/ws_producer</schemaDirectory>
+					<schemaIncludes>
+						<include>*.xsd</include>
+					</schemaIncludes>
+					<cleanPackageDirectories>false</cleanPackageDirectories>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

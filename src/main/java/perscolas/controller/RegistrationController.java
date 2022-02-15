@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import perscolas.database.dao.UserDAO;
+import perscolas.database.dao.UserRoleDAO;
 import perscolas.database.entity.User;
+import perscolas.database.entity.UserRole;
 import perscolas.dependencyinjectionexample.Worker1;
 import perscolas.form.RegisterFormBean;
 
@@ -42,6 +44,9 @@ public class RegistrationController {
 
     @Autowired
     private UserDAO userDao;
+
+    @Autowired
+    private UserRoleDAO userRoleDao;
 
     public static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     @Autowired
@@ -160,9 +165,24 @@ public class RegistrationController {
             String encryptedPassword = passwordEncoder.encode(form.getPassword())  ;
             user.setPassword(encryptedPassword);
 
-            userDao.save(user);
+            // if you are saving a new user without an id.  The return value of save will
+            // create a new autoincremented ID record and return the user object with the new id populated
+            user = userDao.save(user);
 
-            response.setViewName("redirect:/login");
+            if ( form.getId() == null ) {
+                // this is a create because the incoming id variable on the form is null
+                // so ... lets create a user role record for this user also
+                UserRole ur = new UserRole();
+
+                ur.setUser(user);
+                ur.setUserRole("USER");
+
+                userRoleDao.save(ur);
+            }
+
+            // response.setViewName("redirect:/login");
+            response.setViewName("registration/register");
+
         }
 
         return response;
